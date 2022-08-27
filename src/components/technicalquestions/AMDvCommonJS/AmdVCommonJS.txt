@@ -1,0 +1,20 @@
+First, a module in Javascript is a file containing related code.
+We can import and export modules to share functionality between different modules
+
+CommonJS is a way of importing and exporting modules throughout the application
+CommonJS wraps each module in a function called require() and includes an object called module.exports 
+which exports the code you want to use in another module
+
+All the developer has to do is add the file you want on to the module.exports object and require the module in the 
+dependent file
+
+For example
+
+file1.js
+exports.myFunction = () => { console.log("hi) }
+
+file2.js
+const obj = require("./file1.js")
+obj.myFunction()
+
+
