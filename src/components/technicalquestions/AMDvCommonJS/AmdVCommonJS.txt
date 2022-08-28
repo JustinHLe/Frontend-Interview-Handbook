@@ -18,3 +18,18 @@ const obj = require("./file1.js")
 obj.myFunction()
 
 
+
+AMD is another of way of importing and exporting modules but more verbose and not as user friendly AMD 
+is mainly for browser side code and cannot be handled from the server, while CommonJS is for server side
+
+That is why we needed RequireJs to implement AMD on our server. AMD basically gives us a function called define, which 
+takes two paramters an array of dependencies a function which executes when all the dependencies are loaded. The function
+can return anything and within the html file we can load the file with requirejs and used the object returned from
+the function 
+
+I think the biggest difference would be how the scripts are loaded. AMD loads scripts asychronously while CommonJS
+loads scripts sychronously.
+
+asychronously meaning the scripts can load in parallel each other non blocking 
+sychronously meaning scripts load one at a time, blocking
+
