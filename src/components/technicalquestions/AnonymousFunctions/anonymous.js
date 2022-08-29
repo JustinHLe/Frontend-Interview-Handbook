@@ -1,0 +1,9 @@
+/*
+    An anonymous function is a function declared without a name
+
+    Anonymous functions can be used as callback functions in a map or setTimeout to keep code contained and readable
+    instead of using a named function where we pass the named function in the callback or setTimeout and have to 
+    find it in the code
+
+    Anonymous functions can be used as an IIFE to encapsulate variables the current scope of the function not the outer scope
+*/
