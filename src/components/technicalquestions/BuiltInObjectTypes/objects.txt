@@ -1,0 +1,5 @@
+There are 3 different types of objects 
+
+User Objects - custom objects created by the user for example let bird = new Bird()
+Native Objects - objects that are built into Javascript such as Function Object Array String Math Date Boolean
+Host Objects - objects that are built into the browser such as window document location
