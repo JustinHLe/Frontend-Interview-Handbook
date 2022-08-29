@@ -1,0 +1,6 @@
+The main difference between prototype inheritance and classical inheritance is that
+
+prototype inheritance is built around prototype chaining
+
+while classical inheritance is build around classes and constructor functions
+
