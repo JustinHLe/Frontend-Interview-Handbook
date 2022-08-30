@@ -1,0 +1,5 @@
+It could be dangerous to add your own methods and properties to a Native object in javascript, because of these risks
+
+- Changing default behavior may harm other developers using the native object
+- These behaviors may conflict with new methods being added 
+- Conflicting behaviors if two different dependencies add the same method or property

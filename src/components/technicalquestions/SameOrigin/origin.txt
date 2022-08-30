@@ -1,0 +1,8 @@
+The same origin policy in javascript prevents any requests or respsonses from different domains.
+An origin is a combination of the URI, hostname, port number, and protocol
+
+This policy was introduced to prevent malicious data from being received or sent between servers
+
+PORT meaning what port the server exposts such as 8080
+hostname meaning the base URL could be https://google.com
+Protocol meaning how the document was recieved for example HTTP and HTTPS
