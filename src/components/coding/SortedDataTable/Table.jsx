@@ -151,3 +151,7 @@ export const Table = () => {
         </>
     )
 }
+
+/*
+    Things to learn: sort, compareFn in sort
+*/
