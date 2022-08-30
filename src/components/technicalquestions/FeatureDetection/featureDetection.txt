@@ -1,0 +1,29 @@
+Feature Detection is the process of checking if the browser supports a certain block of code 
+if it does support the code run the code with the Feature
+else 
+Write the code in a way that is acceptable to the browser
+
+Feature detection is beneficial because we can catch errors and handle them instead of throwing a page errors
+
+for example
+
+if('geolocation' in navigator){
+    //handle browsers with geolocation
+} else {
+    //implement some sort of geoloation for browsers that dont have the geolocation key in navigator
+}
+
+Feature Interference checks for feature similar to feature detection but once a feature is detected it will assume
+all other features are available as well
+
+for example
+
+if(document.getElementbyTagName){ //checks for document.getElementbyTagName
+    document.getElementById("hi")
+    //if window has getElementbyTagName assumes window also has getElementById("hi")
+}
+
+
+UA string contains metadata about the browser and can be accessed with navigator.userAgent
+UA string is not helpful to use since the metadata is hard to parse and can be spoof
+spoofing meaning the data can actually be modified to represent something that is not

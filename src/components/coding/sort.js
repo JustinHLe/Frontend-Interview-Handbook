@@ -42,15 +42,15 @@ function compareFn(a, b) {
     return a - b
 }
 
-let string1 = "cde"
-let string2 = "abc"
-if(string1 > string2){
-    return 1
-} 
-else if(string1 < string2){
-    return -1
-}
-return 0
+// let string1 = "cde"
+// let string2 = "abc"
+// if(string1 > string2){
+//     return 1
+// } 
+// else if(string1 < string2){
+//     return -1
+// }
+// return 0
 
 /*
     When comparing two strings in javascript they are converted to unicode
@@ -67,4 +67,38 @@ return 0
     c->2
     .... etc
 
+
+    Sort also works on objects it can sort an object by its property
+    for example 
+
+    {
+        b: 15
+        c: "hi"
+    },
+    {
+        a: 10,
+        e: "aooo"
+    }
+
 */
+
+const arrobject = [
+    {
+        age: 15,
+        say: "hi"
+    },
+    {
+        age: 10,
+        say: "aooo"
+    }
+]
+//compare "h" and "a" h > a true 1
+console.log(arrobject.sort((a,b) => {
+    if(a.say > b.say){
+        return 1
+    }
+    if(a.say < b.say){
+        return -1
+    }
+    return 0
+}))

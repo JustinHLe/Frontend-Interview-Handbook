@@ -1,0 +1,23 @@
+JSONP allows the browser to make cross domain requests
+
+Normally we cannot make cross domain requests
+
+https://example.com cannot make a request to https://example.net
+
+To make a cross domain requests we have to allow cross domain boundaries
+
+To bypass cross domain requests we can use CORS or use a script tag
+
+When a browser requests to a server with JSONP enabled, the server will accept some type of parameter 
+and will send a response formatted in a way where the data can be extracted from the script tag
+
+For example we could send a request to http://www.example.net/sample.aspx?callback=mycallback with the parameter callback
+
+Perhaps without the callback param we would get a normal JSON response, however with JSONP the server recognizes that
+we should send something back that is a little different. 
+
+JSONP might send back mycallback({name: "justin"})
+
+and on the client side we could have a function declared called myCallback(data) which does some data handling
+
+JSONP is outdated now use CORS lol

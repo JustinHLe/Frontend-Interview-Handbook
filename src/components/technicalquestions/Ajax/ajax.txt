@@ -1,0 +1,19 @@
+Ajax is a set of web development techniques that allow for asynchronicity on the client side
+
+In simpler terms it basically allows the user to fetch from the server and have updated content without reloading the page
+
+Ajax allows web applications to send and retrieve data from the server asynchronously without interfering with the 
+display or behavior of the page 
+
+Advantanges
+
+- Interactive Webpages
+- Maintain state between pages
+- Page and style scripts only has to be loaded once
+
+Disadvantages
+
+- Webcrawlers may not be able to crawl data if content isnt fetched
+- Need to parse data on the client which may take time for older and slower browsers
+- Does not work if javascript is disabled in browser 
+- Dynamic pages are harder to bookmark
