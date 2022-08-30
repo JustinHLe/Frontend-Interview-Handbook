@@ -51,3 +51,20 @@ else if(string1 < string2){
     return -1
 }
 return 0
+
+/*
+    When comparing two strings in javascript they are converted to unicode
+    capitals and lowercases have different unicodes it would be wise to convert all chars to lowercase or all chars to uppercase than compare
+
+    Once converted it will look at each character in the string and compare them, if the two strings are the same it will move forward and compare the next to chars
+    
+    compare a and c, c is greater in unicode string1 > string2 return 1, positive b first
+
+
+    Assume unicode 
+    a->0
+    b->1
+    c->2
+    .... etc
+
+*/
