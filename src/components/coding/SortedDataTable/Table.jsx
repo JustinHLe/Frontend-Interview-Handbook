@@ -34,6 +34,12 @@ export const Table = () => {
     }, [])
     useEffect(() => {
         let newArr = []
+        /*
+            Loop through every object
+            Loop through every key in the object
+            if value at the key matches the data push the object to new arr
+            and set the companies to the searchedArr
+        */
         for(let i = 0; i < companies.length; i++){
             for(const key in companies[i]){
                 if(companies[i][key].toString().toLowerCase().includes(searchData.toLowerCase())){
