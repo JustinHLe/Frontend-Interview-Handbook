@@ -1,0 +1,5 @@
+/*
+    It is better to leave the global scope untouched because everyone has access to the global scope. If we all define our variables in one scope there
+    will most likely be variable collision
+    
+*/
