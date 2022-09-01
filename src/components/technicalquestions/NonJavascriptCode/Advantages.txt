@@ -1,0 +1,12 @@
+Writing javascript code in a non javascript language such as typescript can be beneficial because 
+
+there may be features in that language that provide better functionality
+Syntatic sugar on top of normal javascript
+Better Error Handling
+
+Disadvantages
+
+Requires a javascript processor to compile non native language to javascript
+Learning Curve
+Dependencies may be harder to find for the exact language
+not always up to date with the latest javascript
