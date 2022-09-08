@@ -19,7 +19,7 @@ const arr4 = [50,1,25,100,10, 9]
 
 console.log(arr4.sort(compareFn))
 /*
-    The sort function in javascript compares elements as strings
+    The sort function in javascript compares elements as strings in their UTF-16 Form
     it will place 100 before 25 since "1" is greater than "2"
 
     In order to circumvent this the sort function can take a comparator function that compares
@@ -58,8 +58,13 @@ function compareFn(a, b) {
 
     Once converted it will look at each character in the string and compare them, if the two strings are the same it will move forward and compare the next to chars
     
-    compare a and c, c is greater in unicode string1 > string2 return 1, positive b first
+    compare a and c, c is greater in unicode string1 < string2 return -1, negative a first
 
+
+    strings are compared lexicographicaly meaning they are compared character by character 
+    If both strings consist of only one character, the longer string will be greater
+
+    for example aaaa > aaa
 
     Assume unicode 
     a->0
