@@ -31,6 +31,9 @@ const promise2 = new MyPromise((resolve, reject) => {
 
 promise2.then((data) => {
     console.log("processing data", data)
+    return data
+}).then((data)=>{
+    console.log("processing data again", data)
 })
 
 /*
