@@ -49,18 +49,18 @@ const fakePromise = new FakePromise((resolve, reject) => {
 })
 fakePromise.then(data => {
     console.log("first", data)
-    return data
+    return FakePromise.resolve("5")
 })
 .then(data => {
     console.log("second", data)
     return data
 })
-.catch(err => {
-    console.log("error", err)
-})
-.finally(() => {
-    console.log("finished")
-})
+// .catch(err => {
+//     console.log("error", err)
+// })
+// .finally(() => {
+//     console.log("finished")
+// })
 /*
     {
 

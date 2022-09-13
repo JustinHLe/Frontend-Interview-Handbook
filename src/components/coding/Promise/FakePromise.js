@@ -9,6 +9,7 @@ const checkPromise = (promise) => {
 }
 class FakePromise {
     constructor(cb){
+        console.log("constructor called")
         this._state = STATE.PENDING;
         this._value = null;
         this._reason = null;
@@ -30,6 +31,7 @@ class FakePromise {
         }
     }
     _onFulfilled(value){
+        console.log("resolved")
         if(this._state !== STATE.PENDING){
             return
         }
@@ -39,6 +41,7 @@ class FakePromise {
     }
 
     _onRejected(reason){
+        console.log("error")
         if(this._state !== STATE.PENDING){
             return
         }
@@ -99,6 +102,7 @@ class FakePromise {
     }
      
     then(thenCb, catchCb){
+        console.log('then called')
         const newPromise = new FakePromise()
         this._thenCbs.push([newPromise, thenCb, catchCb])
         if(this._state === STATE.FULFILLED){
