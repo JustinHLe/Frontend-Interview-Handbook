@@ -1,0 +1,9 @@
+A block formatting context is an HTML box that satisfies at least one of the following conditions:
+
+the value of float is not none
+The value of position is neither static or relative
+the value of display is table-cell, table-caption, inline-block, flex, or inline-flex
+the value of overflow is not visisble
+
+
+The main purpose for block formatting context is to make the block not wrap around the floated element and make the block narrower
