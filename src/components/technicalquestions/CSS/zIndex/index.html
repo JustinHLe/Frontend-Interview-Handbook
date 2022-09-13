@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .box1{
+        width: 100px;
+        height: 100px;
+        background-color: blue;
+        position: relative;
+        z-index: 1;
+    }
+    .box2{
+        width: 75px;
+        height: 75px;
+        background-color: red;
+        position: relative;
+        z-index: 2;
+        top: -50px;
+    }
+    .box3{
+        width: 50px;
+        height: 50px;
+        background-color: green;
+    }
+    .box4{
+        width: 75px;
+        height: 75px;
+        background-color: yellow;
+        position: relative;
+        z-index: 9999;
+    }
+</style>
+<body>
+    <div class="box1">
+        <div class="box4"></div>
+    </div>
+    <div class="box2">
+        <div class="box3"></div>
+    </div>
+</body>
+</html>
+
+<!-- Box 2 will always appear over box1 and all its children elements since it has a higher zIndex -->
+<!-- Even though the child in box4 has a massive zIndex it is a child of box1 so it's Zindexed in the body layer will be the same as the parent -->

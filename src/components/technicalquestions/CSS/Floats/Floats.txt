@@ -1,0 +1,9 @@
+Float is a CSS positioning property and positions an element to the left or right side of a container
+
+When applied the element is taken out of the normal flow of the document and the elements around the floated element will wrap around them.
+
+Clear is commonly used with float when we dont want the elements to wrap around the floated elements
+
+clear both, clear left clear right
+
+ 

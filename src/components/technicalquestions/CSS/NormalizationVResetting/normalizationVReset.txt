@@ -1,0 +1,16 @@
+
+Resetting CSS will strip all default styles away from all elements
+For example margin, padding, and font-size will be reset to all be the same
+
+*{
+    margin 0;
+    padding 0;
+    font-size 14px;
+}
+
+Normalizing CSS will try to make styles consistent across all browsers
+- preserve useful styles instead of stripping everything away
+- correct browser inconsistencies
+- normalize styles for elements
+
+https://github.com/necolas/normalize.css

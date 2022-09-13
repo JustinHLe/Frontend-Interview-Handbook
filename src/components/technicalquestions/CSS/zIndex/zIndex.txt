@@ -1,0 +1,13 @@
+z-index affects how elements are stacked on the dom. ZIndex only affects elements that have a position value that is not sticky
+
+By default without zIndex elements are stacked in order at which they appear in the dom
+
+
+A stacking context is just a fancy way of saying that elements children elements will NEVER stack on top of sibling elements
+A sibling element is not a child element but rather an element that is within the same row level in the DOM tree
+
+For example
+
+if there are two elements in the dom tree with zIndexes the one with the higher zIndex will stack on top of the other
+However if one of those elements has a children with a massively insane zIndex the zIndex will be negligible since the children will never stack on top of 
+sibling elements.  
