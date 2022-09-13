@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 0 0 1 1 */
+        h1.header{
+            color: red
+        }
+        /* 0 1 0 0 */
+        #header{
+            color:black
+        }
+        /* 0 0 1 0 */
+        .header-2{
+            color:green 
+        }
+        h1 {
+            color: blue;
+        }
+        .text{
+            color: green
+        }
+
+        [type="password"], /* 0 0 0 0 */
+        input:focus, /* 0 0 0 1 */
+        :root #myApp input:required { /* 0 1 0 1 */
+        color: blue;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="header" class="header header-2">Hi</h1>
+    <p class="text">This is my p tag</p>
+</body>
+</html>

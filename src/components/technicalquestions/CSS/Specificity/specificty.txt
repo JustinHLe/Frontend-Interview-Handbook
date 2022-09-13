@@ -1,0 +1,27 @@
+specificity is the score that determines which styles are applied on to an element, specificity is calculated on every CSS element
+important will override all specificity
+
+Elements with higher specificty will have their styles displayed
+
+CSS reads from top to bottom if there are two overlapping styles the "more bottom" style will be applied
+Overlapping meaning the style names are exactly the same
+
+
+
+Specificity is evaluated from four different numbers
+
+0               0   0                                  0
+inline styles   id  classes                            generic element selectors
+                    attribute selectors [type="radio"] pseudo elements ::before ::placeholder, things with double colons
+                    pseudo classes :hover :nth-child  
+
+
+[type="password"], // 0 0 1 0
+input:focus, // 0 0 1 1
+:root #myApp input:required { // 0 1 2 1
+  color: blue;
+}
+
+Note the * selector and :where() specificity are both 0 0 0
+Combinators such as > + ~ "" and || dont add any weight to specificity
+

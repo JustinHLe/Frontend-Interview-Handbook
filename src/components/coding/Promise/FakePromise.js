@@ -31,7 +31,7 @@ class FakePromise {
         }
     }
     _onFulfilled(value){
-        console.log("resolved")
+        console.log("resolved", value)
         if(this._state !== STATE.PENDING){
             return
         }
