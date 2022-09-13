@@ -3,6 +3,7 @@ const STATE = {
     REJECTED: "REJECTED",
     FULFILLED: "FULFILLED"
 }
+
 class MyPromise{
     #state = STATE.PENDING
     #value

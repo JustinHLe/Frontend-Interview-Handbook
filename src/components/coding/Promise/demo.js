@@ -1,5 +1,5 @@
 const MyPromise = require("./MyPromise")
-
+const FakePromise = require("./FakePromise")
 // const promise = new Promise((resolve, reject) => {
 //     setTimeout(() => {
 //         let random = Math.floor(Math.random() * 10)
@@ -18,24 +18,49 @@ const MyPromise = require("./MyPromise")
 // .catch(err => { console.log(err) })
 
 
-const promise2 = new MyPromise((resolve, reject) => {
+// const promise2 = new MyPromise((resolve, reject) => {
+//     setTimeout(() => {
+//         let random = Math.floor(Math.random() * 10)
+//         if(random <= 5){
+//             reject(`value: ${random}`)
+//         } else {
+//             resolve(`value: ${random}`)
+//         }
+//     }, 1000)
+// })
+
+// promise2.then((data) => {
+//     console.log("processing data", data)
+//     return data
+// }).then((data)=>{
+//     console.log("processing data again", data)
+// })
+
+
+const fakePromise = new FakePromise((resolve, reject) => {
     setTimeout(() => {
         let random = Math.floor(Math.random() * 10)
         if(random <= 5){
-            reject(`value: ${random}`)
+            reject(`${random}`)
         } else {
-            resolve(`value: ${random}`)
+            resolve(`${random}`)
         }
     }, 1000)
 })
-
-promise2.then((data) => {
-    console.log("processing data", data)
+fakePromise.then(data => {
+    console.log("first", data)
     return data
-}).then((data)=>{
-    console.log("processing data again", data)
 })
-
+.then(data => {
+    console.log("second", data)
+    return data
+})
+.catch(err => {
+    console.log("error", err)
+})
+.finally(() => {
+    console.log("finished")
+})
 /*
     {
 
@@ -47,3 +72,4 @@ promise2.then((data) => {
     promise2 has all the methods and properties of MyPromise
     if we call #onSuccess without this, this isn't found in the constructor so we get an error saying function not defined
 */
+
