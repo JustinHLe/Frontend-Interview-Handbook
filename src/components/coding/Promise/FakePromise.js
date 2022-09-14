@@ -54,7 +54,7 @@ class FakePromise {
         this._thenCbs.forEach(([newPromise, thenCb]) => {
             if(typeof thenCb === 'function'){
                 const valueOfPromise = thenCb(this._value)
-                      
+                  console.log('val', valueOfPromise)
                   if(checkPromise(valueOfPromise)){
                      valueOfPromise.then(
                         value => newPromise._onFulfilled(value),

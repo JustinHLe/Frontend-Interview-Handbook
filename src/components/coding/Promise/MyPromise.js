@@ -5,14 +5,14 @@ const STATE = {
 }
 
 class MyPromise{
-    #state = STATE.PENDING
-    #value
-    #thenCbs = []
-    #catchCbs = []
     constructor(cb){
         console.log('constructor called')
-        let resolve = this.#onSuccess.bind(this)
-        let reject = this.#onFailure.bind(this)
+        this._state = STATE.PENDING
+        this._value
+        this._thenCbs = []
+        this._catchCbs = []
+        let resolve = this._onSuccess.bind(this)
+        let reject = this._onFailure.bind(this)
         try{
             cb(resolve, reject);
         } catch (e){
@@ -20,48 +20,59 @@ class MyPromise{
         }
     }
 
-    #runCallbacks(){
+    _runCallbacks(){
         console.log("running callbacks")
-        if(this.#state === STATE.FULFILLED){
-            this.#thenCbs.forEach((cb) => {
-                cb(this.#value)
+        if(this._state === STATE.FULFILLED){
+            this._thenCbs.forEach((cb) => {
+                cb(this._value)
             })
 
-            this.#thenCbs = []
+            this._thenCbs = []
         }
 
-        if(this.#state === STATE.REJECTED){
-            this.#catchCbs.forEach((cb) => {
-                cb(this.#value)
+        if(this._state === STATE.REJECTED){
+            this._catchCbs.forEach((cb) => {
+                cb(this._value)
             })
 
-            this.#catchCbs = []
+            this._catchCbs = []
         }
     }
      
-    #onSuccess(data){
-        console.log("handle success")
-        if(this.#state !== STATE.PENDING){
-            return;
-        }
-        this.#value = data
-        this.#state = STATE.FULFILLED
-        this.#runCallbacks()
+    _onSuccess(data){
+        queueMicrotask(() => {
+            console.log("handle success")
+            if(this._state !== STATE.PENDING){
+                return;
+            }
+            if(data instanceof MyPromise){
+                data.then(this._onSuccess, this._onFailure)
+                return;
+            }
+            this._value = data
+            this._state = STATE.FULFILLED
+            this._runCallbacks()
+        })
     }
 
-    #onFailure(data){
-        console.log("handle failure")
-        if(this.#state !== STATE.PENDING){
-            return;
-        }
-        this.#value = data
-        this.#state = STATE.REJECTED
-        this.#runCallbacks()
+    _onFailure(data){
+        queueMicrotask(() => {
+            console.log("handle failure")
+            if(this._state !== STATE.PENDING){
+                return;
+            }
+            if(data instanceof MyPromise){
+                data.then(this._onSuccess, this._onFailure)
+            }
+            this._value = data
+            this._state = STATE.REJECTED
+            this._runCallbacks()
+        })
     }
 
     then(thenCb, catchCb){
-        return new MyPromise((resolve, reject) => {
-            this.#thenCbs.push((result) => {
+        const newPromise = new MyPromise((resolve, reject) => {
+            this._thenCbs.push((result) => {
                 if(thenCb == null){
                     resolve(result)
                     return
@@ -74,7 +85,7 @@ class MyPromise{
                 }
             })
 
-            this.#catchCbs.push((result) => {
+            this._catchCbs.push((result) => {
                 if(catchCb == null){
                     reject(result)
                     return
@@ -86,12 +97,13 @@ class MyPromise{
                     reject(err)
                 }
             })
-            this.#runCallbacks()
+            this._runCallbacks()
         })
+        return newPromise
     }
 
     catch(cb){
-        this.then(null, cb)
+        return this.then(null, cb)
     }
 
     finally(cb){
@@ -114,7 +126,7 @@ module.exports = MyPromise
     The outer scope of the function is the then method and has this bounded to promise2 in demojs which has this.thencbs so we push to the outer scope
 
     (resolve, reject) => {
-            this.#thenCbs.push((result) => {
+            this._thenCbs.push((result) => {
                 if(thenCb == null){
                     resolve(result)
                     return
@@ -127,7 +139,7 @@ module.exports = MyPromise
                 }
             })
 
-            this.#catchCbs.push((result) => {
+            this._catchCbs.push((result) => {
                 if(catchCb == null){
                     reject(result)
                     return
@@ -139,7 +151,7 @@ module.exports = MyPromise
                     reject(err)
                 }
             })
-            this.#runCallbacks()
+            this._runCallbacks()
     }
 
     thenCb and catchCb are also closures in the then method

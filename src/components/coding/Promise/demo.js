@@ -18,43 +18,43 @@ const FakePromise = require("./FakePromise")
 // .catch(err => { console.log(err) })
 
 
-// const promise2 = new MyPromise((resolve, reject) => {
-//     setTimeout(() => {
-//         let random = Math.floor(Math.random() * 10)
-//         if(random <= 5){
-//             reject(`value: ${random}`)
-//         } else {
-//             resolve(`value: ${random}`)
-//         }
-//     }, 1000)
-// })
-
-// promise2.then((data) => {
-//     console.log("processing data", data)
-//     return data
-// }).then((data)=>{
-//     console.log("processing data again", data)
-// })
-
-
-const fakePromise = new FakePromise((resolve, reject) => {
+const promise2 = new MyPromise((resolve, reject) => {
     setTimeout(() => {
         let random = Math.floor(Math.random() * 10)
         if(random <= 5){
-            reject(`${random}`)
+            reject(`value: ${random}`)
         } else {
-            resolve(`${random}`)
+            resolve(`value: ${random}`)
         }
     }, 1000)
 })
-fakePromise.then(data => {
-    console.log("first", data)
-    return FakePromise.resolve("5")
-})
-.then(data => {
-    console.log("second", data)
+
+promise2.then((data) => {
+    console.log("processing data", data)
     return data
+}).then((data)=>{
+    console.log("processing data again", data)
 })
+
+
+// const fakePromise = new FakePromise((resolve, reject) => {
+//     setTimeout(() => {
+//         let random = Math.floor(Math.random() * 10)
+//         if(random <= 5){
+//             reject(`${random}`)
+//         } else {
+//             resolve(`${random}`)
+//         }
+//     }, 1000)
+// })
+// fakePromise.then(data => {
+//     console.log("first", data)
+//     return FakePromise.resolve("5")
+// })
+// .then(data => {
+//     console.log("second", data)
+//     return data
+// })
 // .catch(err => {
 //     console.log("error", err)
 // })
