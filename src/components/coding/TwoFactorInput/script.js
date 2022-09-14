@@ -82,12 +82,16 @@ function checkInput(e){
     if(isNaN(e.key) && e.key !== "Backspace" && e.key !== "Enter"){
         e.preventDefault()
     } 
+    if(e.key === "Backspace"){
+        if(e.target.value !== ""){
+            e.target.value = ""
+        } else {
+            getPrevInput(e)
+            return
+        }
+    } 
 }
 function handleInput(e){
-    if(e.key === "Backspace"){
-        getPrevInput(e)
-        return
-    } 
     if(e.key.match(/[0-9]/g)){
         if(e.target.style.border === "1px solid red"){
             e.target.style.border = "1px solid black"
