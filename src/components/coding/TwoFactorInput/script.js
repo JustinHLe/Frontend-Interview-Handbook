@@ -5,9 +5,10 @@ const form = document.getElementsByTagName("form")[0]
 form.addEventListener("submit", handleSubmit)
 
 inputs.forEach(el => {
-    el.addEventListener("keyup", handleBackwards)
+    el.addEventListener("keyup", handleInput)
     el.addEventListener("paste", handlePaste)
     el.addEventListener("keydown", checkInput)
+    el.addEventListener("input", onInput)
 })
 var ctrlPressed = false
 
@@ -21,7 +22,6 @@ function handleSubmit(e) {
     if(code.length < 6){
         inputs.forEach((el, index, arr) => {
             if(el.value === ""){
-                console.log(el)
                 el.style.border = "1px solid red"
             }
         }) 
@@ -31,17 +31,35 @@ function handleSubmit(e) {
     e.target.reset()
     inputs[0].focus()
 }
+function onInput(e){
+    if(e.inputType === "insertFromPaste" && isNaN(e.target.value)){
+        e.target.value = ""
+    }
+}
 function handlePaste(e){
-    console.log("paste")
+    let startingPoint
+    let cnt = 0
     let paste = e.clipboardData.getData('text/plain');
+    if(paste.match(/[0-9]/g) === null) return
     let parsedInput = paste.match(/[0-9]/g).join('').substring(0,6)
     inputs.forEach((el,index) => {
-        if(parsedInput[index] !== undefined){
-            el.value = parsedInput[index]
+        if(el === document.activeElement) {
+            startingPoint = index
         }
+        // if(parsedInput[index] !== undefined){
+        //     el.value = parsedInput[index]
+        // }
     })
-    if(parsedInput.length <= 6){
-        inputs[parsedInput.length - 1].focus()
+    for(let i = startingPoint; i < inputs.length; i++){
+        if(parsedInput[cnt] !== undefined){
+            inputs[i].value = parsedInput[cnt]
+            cnt++
+        }
+    }
+    if(startingPoint + parsedInput.length <= 6){
+        inputs[startingPoint + parsedInput.length - 1].focus()
+    } else {
+        inputs[inputs.length - 1].focus()
     }
 } 
 function checkInput(e){
@@ -57,16 +75,15 @@ function checkInput(e){
     */
     if(ctrlPressed === true){
         if(e.key === 'v'){
-            console.log("pasted")
             ctrlPressed = false
             return
-        }
+        } 
     }
     if(isNaN(e.key) && e.key !== "Backspace" && e.key !== "Enter"){
         e.preventDefault()
-    }
+    } 
 }
-function handleBackwards(e){
+function handleInput(e){
     if(e.key === "Backspace"){
         getPrevInput(e)
         return
@@ -77,14 +94,13 @@ function handleBackwards(e){
         }
         e.target.value = e.key
         getNextInput(e)
-    }
+    } 
 }
 
 
 function getNextInput(prev){
     inputs.forEach((el, index, arr) => {
         if(prev.target === el && index !== 5){
-            console.log(arr[index + 1])
             arr[index + 1].focus()
         }
     })
