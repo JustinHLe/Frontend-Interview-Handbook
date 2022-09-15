@@ -9,7 +9,6 @@ const checkPromise = (promise) => {
 }
 class FakePromise {
     constructor(cb){
-        console.log("constructor called")
         this._state = STATE.PENDING;
         this._value = null;
         this._reason = null;
@@ -31,9 +30,7 @@ class FakePromise {
         }
     }
     _onFulfilled(value){
-        console.log("resolved", value)
         if(this._state !== STATE.PENDING){
-            console.log("here")
             return
         }
         this._state = STATE.FULFILLED
@@ -42,7 +39,6 @@ class FakePromise {
     }
 
     _onRejected(reason){
-        console.log("error")
         if(this._state !== STATE.PENDING){
             return
         }
@@ -51,14 +47,40 @@ class FakePromise {
         this._propagateRejected()
     }
 
+    /*
+        currently resolving fakePromise this refers to fakePromise
+        we're still executing the cb() from fakePromise
+        fakePromise CB completed
+
+        called callback on the promise from FakePromise.resolve(5)
+        this is pointing to valueOfPromise
+    */
+   /*
+        PropagateFulfilled()
+        Will loop through all subarrays in the current promises
+        thenCb array
+        if the thenCb/catchCb is a function we execute 
+        Call the thenCb
+            if the thenCb is not a promise
+                call nextPromise with returned value from then
+            else
+            If thenCb returns a new promise
+                call then on the new promise immediately
+                and pass back the reject/resolve handlers from
+                the current promise's next promise which will now
+                resolve/reject with the data returned from the newly created
+                promise
+        else 
+            call the nextPromise with the current fulfillment
+   */
     _propagateFulfilled(){
         this._thenCbs.forEach(([newPromise, thenCb]) => {
             if(typeof thenCb === 'function'){
                 // console.log("then is a func", thenCb(this._value))
-                console.log(this, newPromise)
+                // console.log(this, newPromise)
                 const valueOfPromise = thenCb(this._value)
                   if(checkPromise(valueOfPromise)){
-                    console.log("is a promise")
+                    // console.log("is a promise")
                      valueOfPromise.then(
                         value => newPromise._onFulfilled(value),
                         reason => newPromise._onRejected(reason)
@@ -103,9 +125,14 @@ class FakePromise {
         this._thenCbs = []
         this._finallyCbs = []
     }
-     
+    /*
+        then creates a new promise which we can return 
+        in order to chain promises together
+
+        Then will push the newly created promise and all the arguments
+        to the original promise which called then.
+    */
     then(thenCb, catchCb){
-        console.log('then called')
         const newPromise = new FakePromise()
         this._thenCbs.push([newPromise, thenCb, catchCb])
         if(this._state === STATE.FULFILLED){
@@ -119,6 +146,10 @@ class FakePromise {
         return newPromise
     }
 
+    /*
+        Then will handle catch so all we have to do is passed
+        undefined in the first argument
+    */
     catch(catchcb){
         return this.then(undefined, catchcb)
     }
@@ -138,6 +169,12 @@ class FakePromise {
     }
 }
 
+/*
+    The two static methods for promise are resolve and reject
+    both take a value and return a new promise.
+    Both methods pass in a callback as an argument where
+    it will either resolve or rejct the value immediately.
+*/
 FakePromise.resolve = value => new FakePromise(resolve => resolve(value)) //5
 FakePromise.reject = value => new FakePromise((_, reject) => reject(value))
 
