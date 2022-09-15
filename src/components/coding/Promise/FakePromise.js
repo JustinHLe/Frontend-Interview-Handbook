@@ -33,6 +33,7 @@ class FakePromise {
     _onFulfilled(value){
         console.log("resolved", value)
         if(this._state !== STATE.PENDING){
+            console.log("here")
             return
         }
         this._state = STATE.FULFILLED
@@ -53,9 +54,11 @@ class FakePromise {
     _propagateFulfilled(){
         this._thenCbs.forEach(([newPromise, thenCb]) => {
             if(typeof thenCb === 'function'){
+                // console.log("then is a func", thenCb(this._value))
+                console.log(this, newPromise)
                 const valueOfPromise = thenCb(this._value)
-                  console.log('val', valueOfPromise)
                   if(checkPromise(valueOfPromise)){
+                    console.log("is a promise")
                      valueOfPromise.then(
                         value => newPromise._onFulfilled(value),
                         reason => newPromise._onRejected(reason)
@@ -135,7 +138,7 @@ class FakePromise {
     }
 }
 
-FakePromise.resolve = value => new FakePromise(resolve => resolve(value))
+FakePromise.resolve = value => new FakePromise(resolve => resolve(value)) //5
 FakePromise.reject = value => new FakePromise((_, reject) => reject(value))
 
 module.exports = FakePromise
