@@ -84,12 +84,18 @@ const fakePromise3 = new JLPromise((resolve, reject) => {
     }, 1000)
 })
 
-fakePromise3.catch(data => {
-    console.log("success", data)
-    return JLPromise.reject("5")
-}).catch(data => {
-    console.log("times two", data * 2)
+fakePromise3.then((data) => {
+    console.log("pre", data)
+    return data
+}).finally(() => { 
+    console.log("done!")
+}).then(data => {
+    console.log("post success", data)
+}).catch(err => {
+    console.log("post error", err)
 })
+//if we chain another then we will get the result from the first .then
+
 /*
     {
 
@@ -109,12 +115,24 @@ fakePromise3.catch(data => {
 //         if(random <= 5){
 //             reject(`${random}`)
 //         } else {
-//             reject(`${random}`)
+//             resolve(`${random}`)
 //         }
 //     }, 1000)
 // })
 
-// defaultPromise.then(console.log(5)).catch(err => {
-//     console.log(err)
+// defaultPromise.then((data) => {
+//     console.log("success", data)
+//     return data * 3
+// })
+// .catch((data) => {
+//     console.log("error", data)
+//     return data * 2
+// })
+// .finally(() => {
+//     console.log("finished")
+//     return "5"
+// })
+// .then(data => {
+//     console.log("post", data)
 // })
 

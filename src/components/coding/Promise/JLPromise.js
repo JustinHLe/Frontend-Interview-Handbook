@@ -5,13 +5,13 @@ const STATE = {
 }
 class JLPromise {
     constructor(cb){
-        console.log("constructor called")
+        // console.log("constructor called")
         this._state = STATE.PENDING
         this._value
         this._reason
 
         this._callbacks = []
-
+        this._finallyCbs = []
         if(typeof cb === "function"){
             setTimeout(() => {
                 try{
@@ -24,7 +24,7 @@ class JLPromise {
     }
 
     _onFulfilled(value){
-        console.log("resolved", value)
+        // console.log("resolved", value)
         if(this._state !== STATE.PENDING) return 
         this._state = STATE.FULFILLED
         this._value = value
@@ -32,7 +32,7 @@ class JLPromise {
     }
 
     _onReject(reason){
-        console.log("reject", reason)
+        // console.log("reject", reason)
         if(this._state !== STATE.PENDING) return 
         this._state = STATE.REJECTED
         this._reason = reason
@@ -49,13 +49,22 @@ class JLPromise {
                         (reason) => newPromise._onReject(reason)
                     )
                 } else {
-                    newPromise._onFulfilled(valueOfPromise) // 10
+                    newPromise._onFulfilled(valueOfPromise) // 6
                 }
             } else {
                 newPromise._onFulfilled(this._value)
             }
         })
-
+        this._finallyCbs.forEach(([newPromise, finallyCb]) => {
+            if(typeof finallyCb === 'function'){
+                try{
+                    finallyCb()
+                } catch(err){
+                    newPromise._onReject(err)
+                }
+            }
+            newPromise._onFulfilled(this._value)
+        })
         this._callbacks = []
     }
 
@@ -76,6 +85,16 @@ class JLPromise {
                 newPromise._onReject(this._reason) //pass rejection forward
             }
         })
+        this._finallyCbs.forEach(([newPromise, finallyCb]) => {
+            if(typeof finallyCb === 'function'){
+                try{
+                    finallyCb()
+                } catch(err){
+                    newPromise._onReject(err)
+                }
+            } 
+            newPromise._onFulfilled(this._reason)
+        })
 
         this._callbacks = []
     }
@@ -85,7 +104,7 @@ class JLPromise {
         and the value is passed through the chain
     */
     then(thenCb, catchCb){
-        console.log("then called")
+        // console.log("then called")
         const newPromise = new JLPromise()
 
         this._callbacks.push([newPromise, thenCb, catchCb])
@@ -96,17 +115,23 @@ class JLPromise {
 
     //returning because you need to chain the newPromise created from then
     catch(catchCb){
-        console.log("catch called")
+        // console.log("catch called")
         return this.then(undefined, catchCb)
+    }
+
+    finally(finallyCb){
+        // console.log("finally called")
+        const newPromise = new JLPromise()
+
+        this._finallyCbs.push([newPromise, finallyCb])
+
+        return newPromise
     }
 
     _isPromise(promise){
         return promise instanceof JLPromise
     }
 
-    finally(){
-
-    }
 }
 
 /*
