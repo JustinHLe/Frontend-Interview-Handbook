@@ -79,21 +79,15 @@ const fakePromise3 = new JLPromise((resolve, reject) => {
         if(random <= 5){
             reject(`${random}`)
         } else {
-            resolve(`${random}`)
+            reject(`${random}`)
         }
     }, 1000)
 })
 
-fakePromise3.then((data) => {
+fakePromise3.catch((data) => {
     console.log("pre", data)
-    return data
-}).finally(() => { 
-    console.log("done!")
-}).then(data => {
-    console.log("post success", data)
-}).catch(err => {
-    console.log("post error", err)
-})
+    return JLPromise.resolve("hi")
+}).then(data => console.log(data))
 //if we chain another then we will get the result from the first .then
 
 /*

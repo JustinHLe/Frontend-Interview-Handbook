@@ -58,14 +58,24 @@ class JLPromise {
         this._finallyCbs.forEach(([newPromise, finallyCb]) => {
             if(typeof finallyCb === 'function'){
                 try{
-                    finallyCb()
+                    const valueOfFinally = finallyCb()
+                    if(this._isPromise(valueOfFinally)){
+                        valueOfFinally.then(
+                            undefined,
+                            (reason) => newPromise._onReject(reason)
+                        )
+                    } else {
+                        newPromise._onFulfilled(this._value)
+                    }
                 } catch(err){
                     newPromise._onReject(err)
                 }
+            } else {
+                newPromise._onFulfilled(this._value)
             }
-            newPromise._onFulfilled(this._value)
         })
         this._callbacks = []
+        this._finallyCbs = []
     }
 
     _propagateReject(){
@@ -88,15 +98,25 @@ class JLPromise {
         this._finallyCbs.forEach(([newPromise, finallyCb]) => {
             if(typeof finallyCb === 'function'){
                 try{
-                    finallyCb()
+                    const valueOfFinally = finallyCb()
+                    if(this._isPromise(valueOfFinally)){
+                        valueOfFinally.then(
+                            undefined,
+                            (reason) => newPromise._onReject(reason)
+                        )
+                    } else {
+                        newPromise._onFulfilled(this._value)
+                    }
                 } catch(err){
                     newPromise._onReject(err)
                 }
-            } 
-            newPromise._onFulfilled(this._reason)
+            } else {
+                newPromise._onFulfilled(this._value)
+            }
         })
 
         this._callbacks = []
+        this._finallyCbs = []
     }
 
     /*
