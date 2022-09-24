@@ -1,0 +1,10 @@
+ReactDOM is a react package and provides DOM-specific methods
+that can be used at the top level of your application
+
+One of the more commonly used method is render() which will render a 
+React element onto the DOM
+
+ReactDOM.render(a,b)
+
+a => element we want to render
+b => where we want to render 
