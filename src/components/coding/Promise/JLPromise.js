@@ -161,4 +161,23 @@ class JLPromise {
 */
 JLPromise.resolve = (value) => new JLPromise(resolve => resolve(value))
 JLPromise.reject = value => new JLPromise((_, reject) => reject(value))
+JLPromise.all = (arr) => {
+    const res = []
+    let completed = 0
+    const newPromise = new JLPromise((resolve, reject) => {
+        arr.forEach((promise, index) => {
+            promise.then(value => {
+                completed++
+                res[index] = value
+                console.log(value)
+                if(completed === arr.length){
+                    resolve(res)
+                }
+            }).catch(reject)
+        })
+    })
+
+
+    return newPromise
+}
 module.exports = JLPromise

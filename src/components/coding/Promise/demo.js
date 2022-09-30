@@ -73,21 +73,19 @@ const JLPromise = require("./JLPromise")
 // })
 
 
-const fakePromise3 = new JLPromise((resolve, reject) => {
-    setTimeout(() => {
-        let random = Math.floor(Math.random() * 10)
-        if(random <= 5){
-            reject(`${random}`)
-        } else {
-            reject(`${random}`)
-        }
-    }, 1000)
+const promise1 = JLPromise.resolve(3);
+const promise2 = 42;
+const promise3 = new JLPromise((resolve, reject) => {
+  setTimeout(() => {
+    resolve('foo')
+  }, 100);
+});
+
+JLPromise.all([promise1, promise2, promise3]).then(values => {
+    console.log(values)
 })
 
-fakePromise3.catch((data) => {
-    console.log("pre", data)
-    return JLPromise.resolve("hi")
-}).then(data => console.log(data))
+
 //if we chain another then we will get the result from the first .then
 
 /*
