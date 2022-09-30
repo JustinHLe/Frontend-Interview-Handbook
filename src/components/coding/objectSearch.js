@@ -1,8 +1,8 @@
 //design a chatbox
 
 const obj = {
-    // name: "justin",
-    // type: "person",
+    name: "justin",
+    type: "person",
     address: {
         street: "123 street street",
         number: "1234",
