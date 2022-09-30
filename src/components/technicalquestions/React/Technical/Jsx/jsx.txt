@@ -1,0 +1,4 @@
+JSX allows us to write HTML looking code and it will automatically convert 
+it to something which React can read using babel. 
+
+Since the browser can only read Javascript

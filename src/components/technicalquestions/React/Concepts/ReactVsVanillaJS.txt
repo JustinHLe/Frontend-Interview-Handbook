@@ -1,0 +1,26 @@
+React Pros
+
+- React is primarily used for building out larger applications.
+- React allows the developer to compartmentalize their code so everything
+isn't in one big file
+- React encapsulates all the js, html, and css into one place so we dont
+have to to grab it from different files called components speeds up 
+processing and compiling time since everything is only in one file  
+- React code is generated with javascript into one HTML file
+
+Pros of Vanilla JS  
+
+- Fast and simple to develop 
+- Javascript is good for simple projects 
+
+Downgrades of Vanilla Javascript
+
+- Data is separated from javascript file, need to fetch Elements every time
+- Vanilla Javascript is slow since we have to select all elements 
+from the DOM in order to manipulate them
+- HTML, CSS, and JS are separated -> need to fetch what we want to 
+manipulate and then update then return the data 
+- Data is also separated, fetch data from HTML with javascript 
+
+
+
