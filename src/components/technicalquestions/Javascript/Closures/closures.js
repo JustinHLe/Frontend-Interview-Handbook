@@ -14,6 +14,9 @@
     Closures is a term meaning javascript will search through all properties and methods
     within the lexical environment to find whatever it needs to, if it cannot find it, it takes a reference to the
     outer object and looks for it in there and continues to null
+
+    Free variables are variables that are neither locally declared nor passed
+    as a parameter
 */
 
 let data = "hi"
